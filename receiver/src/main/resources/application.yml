@@ -1,0 +1,10 @@
+quarkus:
+  http:
+    port: 8080
+influxdb:
+  connectionUrl: http://localhost:8086
+  token: mytoken
+  orgId: myorg
+  data:
+    bucketId: f2a4ea9c3f563aac
+    bucketName: mybucket
