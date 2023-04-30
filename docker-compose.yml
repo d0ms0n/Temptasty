@@ -5,12 +5,11 @@ services:
     build:
       context: temperature_sensor
     environment:
-      - SLEEP_TIME=3
+      - RECEIVER_URL=http://host.docker.internal:8080/samples
+      - SLEEP_TIME=5
     restart: always
     depends_on:
       - influxdb
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
   influxdb:
     image: influxdb:2.0
     restart: always

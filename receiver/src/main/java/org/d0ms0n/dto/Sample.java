@@ -4,17 +4,13 @@ import java.time.Instant;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
 
-import jakarta.validation.constraints.DecimalMax;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.*;
 
 @Measurement(name = "sample")
 public class Sample {
 
     @Column(tag = true)
-    @Pattern(regexp = "celsius|fahrenheit")
+    @Pattern(regexp = "celsius")
     private String unit;
 
     @Column(tag = true)
@@ -22,19 +18,22 @@ public class Sample {
     private String name;
 
     @Column(timestamp = true)
-    private Instant timestamp;
+    private Instant time;
 
     @Column
-    @DecimalMin(value = "-15.0")
-    @DecimalMax(value = "45.0")
-    @Digits(integer=2, fraction=2)
-    private float value;
+    @DecimalMin(value = "10.0")
+    @DecimalMax(value = "300.0")
+    @Digits(integer=3, fraction=2)
+    private double value;
 
-    public Sample(String name, String unit, Instant timestamp, float value) {
+    public Sample(String name, String unit, Instant time, double value) {
         this.name = name;
         this.unit = unit;
-        this.timestamp = timestamp;
+        this.time = time;
         this.value = value;
+    }
+
+    public Sample() {
     }
 
     public String getUnit() {
@@ -43,16 +42,16 @@ public class Sample {
     public void setUnit(String unit) {
         this.unit = unit;
     }
-    public Instant getTimestamp() {
-        return timestamp;
+    public Instant getTime() {
+        return time;
     }
-    public void setTimestamp(Instant created) {
-        this.timestamp = created;
+    public void setTime(Instant created) {
+        this.time = created;
     }
-    public float getValue() {
+    public double getValue() {
         return value;
     }
-    public void setValue(float value) {
+    public void setValue(double value) {
         this.value = value;
     }
     public String getName() {

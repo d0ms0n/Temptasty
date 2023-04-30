@@ -1,8 +1,6 @@
-# code-with-quarkus
+# Temptasty - temperature samples
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
-
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+This application receives temperature samples from sensors and stores them to influx db.
 
 ## Running the application in dev mode
 
@@ -12,6 +10,9 @@ You can run your application in dev mode that enables live coding using:
 ```
 
 > **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+
+## API Description
+See API description here -> [http://localhost:8080/q/swagger-ui](http://localhost:8080/q/swagger-ui)
 
 ## Packaging and running the application
 

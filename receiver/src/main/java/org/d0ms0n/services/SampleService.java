@@ -7,11 +7,11 @@ import com.influxdb.client.WriteApi;
 import com.influxdb.client.domain.WritePrecision;
 import com.influxdb.exceptions.InfluxException;
 import com.influxdb.query.dsl.Flux;
+import com.influxdb.query.dsl.functions.MeanFlux;
+import com.influxdb.query.dsl.functions.RangeFlux;
 import com.influxdb.query.dsl.functions.restriction.Restrictions;
-
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
-
 import org.d0ms0n.dto.Sample;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
@@ -39,7 +39,7 @@ public class SampleService implements AutoCloseable {
 
     public SampleService() {
     }
-    
+
     @PostConstruct
     private void initializeInfluxDBClient() {
         logger.info("Connecting to: {}, token: {}, org: {}, bucketId: {}",
@@ -52,29 +52,47 @@ public class SampleService implements AutoCloseable {
         this.influxDBClient.close();
     }
 
-    
-    public Sample createSample(Sample sample) throws InfluxException {
+
+    public void createSample(Sample sample) throws InfluxException {
         WriteApi writeApi = influxDBClient.getWriteApi();
         writeApi.writeMeasurement(bucketName, orgId, WritePrecision.NS, sample);
         writeApi.close();
-        return sample;
 
     }
 
     public List<Sample> getAllSamples() throws InfluxException {
         String temperatureByTimeQuery = Flux.from(bucketName)
-                .range(DATA_RETENTION_DAYS, ChronoUnit.DAYS)
+                .range(-1L, ChronoUnit.YEARS)
                 .toString();
         QueryApi queryApi = influxDBClient.getQueryApi();
         return queryApi.query(temperatureByTimeQuery, Sample.class);
     }
 
-    public List<Sample> getDataByUnit(String unit) throws InfluxException {
-        String temperatureByLocationQuery = Flux.from(bucketName)
-                .range(DATA_RETENTION_DAYS, ChronoUnit.DAYS)
-                .filter(Restrictions.and(Restrictions.column("unit").equal(unit)))
-                .toString();
+    public List<Sample> getMean(String range, String sensor) throws InfluxException {
+        Flux flux = Flux.from(bucketName);
+        RangeFlux rangeFlux = null;
+        MeanFlux meanFlux;
+
+        if (range != null) {
+            switch (range) {
+                case "h" -> rangeFlux = flux.range(-1L, ChronoUnit.HOURS);
+                case "d" -> rangeFlux = flux.range(-1L, ChronoUnit.DAYS);
+                case "m" -> rangeFlux = flux.range(-1L, ChronoUnit.MONTHS);
+                default -> rangeFlux = flux.range(-1L, ChronoUnit.YEARS);
+            }
+        }
+
+        if (rangeFlux == null) {
+            throw new IllegalArgumentException("range could not be parsed");
+        }
+
+        if (sensor != null) {
+            meanFlux = rangeFlux.filter(Restrictions.column("name").equal(sensor)).mean();
+        } else {
+            meanFlux = rangeFlux.mean();
+        }
+
         QueryApi queryApi = influxDBClient.getQueryApi();
-        return queryApi.query(temperatureByLocationQuery, Sample.class);
+        return queryApi.query(meanFlux.toString(), Sample.class);
     }
 }

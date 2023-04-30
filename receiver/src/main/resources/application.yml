@@ -1,10 +1,22 @@
 quarkus:
   http:
     port: 8080
+  smallrye-openapi:
+    info-title: Temptasty - temperature samples API
+    info-version: 1.0.0
+    info-description: Just a temperature service
+    info-terms-of-service: Terms...
+    info-contact-email: kontakt@example.com
+    info-contact-name: d0ms0n
+    info-contact-url: http://exampleurl.com/contact
+    info-license-name: Apache 2.0
+    info-license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+
+### influx settings
 influxdb:
   connectionUrl: http://localhost:8086
   token: mytoken
   orgId: myorg
   data:
-    bucketId: f2a4ea9c3f563aac
-    bucketName: mybucket
+    bucketId: 3dcfaead8b6b118c
+    bucketName: temp_samples
