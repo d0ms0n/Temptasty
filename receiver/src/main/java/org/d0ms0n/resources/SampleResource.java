@@ -8,9 +8,10 @@ import jakarta.ws.rs.core.Response;
 import org.d0ms0n.dto.Sample;
 import org.d0ms0n.services.SampleService;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
-import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static jakarta.ws.rs.core.Response.Status.CREATED;
 
 @Path("/samples")
 public class SampleResource {
@@ -45,6 +46,6 @@ public class SampleResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response writeSample(@Valid Sample sample) {
         sampleService.createSample(sample);
-        return Response.ok(sample).build();
+        return Response.status(CREATED).entity(sample).build();
     }
 }

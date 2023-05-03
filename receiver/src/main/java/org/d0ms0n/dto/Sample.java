@@ -1,10 +1,10 @@
 package org.d0ms0n.dto;
 
-import java.time.Instant;
 import com.influxdb.annotations.Column;
 import com.influxdb.annotations.Measurement;
-
 import jakarta.validation.constraints.*;
+
+import java.time.Instant;
 
 @Measurement(name = "sample")
 public class Sample {
@@ -23,7 +23,7 @@ public class Sample {
     @Column
     @DecimalMin(value = "10.0")
     @DecimalMax(value = "300.0")
-    @Digits(integer=3, fraction=2)
+    @Digits(integer = 3, fraction = 2)
     private double value;
 
     public Sample(String name, String unit, Instant time, double value) {
@@ -39,24 +39,31 @@ public class Sample {
     public String getUnit() {
         return unit;
     }
+
     public void setUnit(String unit) {
         this.unit = unit;
     }
+
     public Instant getTime() {
         return time;
     }
+
     public void setTime(Instant created) {
         this.time = created;
     }
+
     public double getValue() {
         return value;
     }
+
     public void setValue(double value) {
         this.value = value;
     }
+
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
