@@ -1,6 +1,5 @@
 package org.d0ms0n.resources;
 
-import io.swagger.annotations.ApiParam;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -8,6 +7,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.d0ms0n.dto.Sample;
 import org.d0ms0n.services.SampleService;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +33,9 @@ public class SampleResource {
     @Path("mean")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getMean(
-            @ApiParam(allowableValues = "you can use h for last hour, d for last day and m for last month")
+            @Parameter(description = "you can use h for last hour, d for last day and m for last month")
             @QueryParam("range") String range,
-            @ApiParam(allowableValues = "sensor1 or sensor2")
+            @Parameter(description = "sensor1 or sensor2")
             @QueryParam("sensor") String sensor) {
         return Response.ok(sampleService.getMean(range, sensor)).build();
     }

@@ -18,5 +18,5 @@ influxdb:
   token: mytoken
   orgId: myorg
   data:
-    bucketId: 3dcfaead8b6b118c
+    bucketId: 88321a64a925ca6a
     bucketName: temp_samples

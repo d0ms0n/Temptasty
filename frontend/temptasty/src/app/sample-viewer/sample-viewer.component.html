@@ -1,0 +1,19 @@
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <mat-nav-list>
+      <mat-list-item id="nav-my-documents" routerLink="documents" routerLinkActive="active" (click)="refreshContent()">
+        <mat-icon color="primary" matListItemIcon>timeline</mat-icon>
+        <span class="mat-subtitle-2">View Samples</span>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+    <canvas baseChart class="chart"
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [type]="lineChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </mat-drawer-content>
+</mat-drawer-container>
+

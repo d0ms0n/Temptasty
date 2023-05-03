@@ -61,5 +61,13 @@ public class Sample {
         this.name = name;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Sample{" +
+                "unit='" + unit + '\'' +
+                ", name='" + name + '\'' +
+                ", time=" + time +
+                ", value=" + value +
+                '}';
+    }
 }
