@@ -5,7 +5,7 @@ services:
     build:
       context: temperature_sensor
     environment:
-      - RECEIVER_URL=http://host.docker.internal:8080/samples
+      - RECEIVER_URL=http://receiver:8080/samples
       - SLEEP_TIME=5
     restart: always
     depends_on:
@@ -27,7 +27,17 @@ services:
     volumes:
       - ./db/data/influxdb2/conf:/etc/influxdb2
       - ./db_data:/var/lib/influxdb2
-  # alpine:
-  #   image: alpine:3.17.3
-  #   command: sleep 300
-  #   restart: always
+  receiver:
+#    image: openjdk:17-jdk-alpine3.14
+    build:
+      context: receiver
+      dockerfile: src/main/docker/Dockerfile.jvm
+    restart: always
+    ports:
+      - "8080:8080"
+      - "5005:5005"
+    environment:
+      - JAVA_DEBUG=true
+      - JAVA_DEBUG_PORT=*:5005
+      - influxdb.connectionUrl=http://influxdb:8086
+      - influxdb.data.bucketId=b519c65ed3b14eca

@@ -5,6 +5,7 @@ This docker compose file starts influxdb, a mock temperature sensor and a quarku
 ## Running the application
 
 ```
+./mvnw package
 docker-compose up --build -d
 ```
 
