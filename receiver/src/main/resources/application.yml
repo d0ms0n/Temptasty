@@ -11,7 +11,7 @@ quarkus:
     info-terms-of-service: Terms...
     info-contact-email: kontakt@example.com
     info-contact-name: d0ms0n
-    info-contact-url: http://exampleurl.com/contact
+    info-contact-url: https://github.com/d0ms0n/Temptasty
     info-license-name: Apache 2.0
     info-license-url: https://www.apache.org/licenses/LICENSE-2.0.html
 
