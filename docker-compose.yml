@@ -28,7 +28,6 @@ services:
       - ./db/data/influxdb2/conf:/etc/influxdb2
       - ./db_data:/var/lib/influxdb2
   receiver:
-#    image: openjdk:17-jdk-alpine3.14
     build:
       context: receiver
       dockerfile: src/main/docker/Dockerfile.jvm
@@ -41,3 +40,12 @@ services:
       - JAVA_DEBUG_PORT=*:5005
       - influxdb.connectionUrl=http://influxdb:8086
       - influxdb.data.bucketId=b519c65ed3b14eca
+  reverse-proxy:
+    image: nginx:1.23.3-alpine
+    restart: always
+    volumes:
+      - ./reverse-proxy/templates:/etc/nginx/templates
+    ports:
+      - "8081:80"
+    environment:
+      - NGINX_PORT=80

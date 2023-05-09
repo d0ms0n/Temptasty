@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { firstValueFrom, map } from "rxjs";
+import {firstValueFrom, map} from "rxjs";
+import {Sample} from "../model/sample.model";
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,12 @@ export class ReceiverService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllSamples(): Promise<string> {
+  getAllSamples(): Promise<Sample[]> {
+    let sampleUrl = "http://localhost:8081/samples";
     return firstValueFrom(
-      this.httpClient.get<{ _id: string }>("/samples/").pipe(
-        map(value => {
-          const folderId = value._id;
-          if (folderId) {
-            return folderId;
-          } else {
-            throw {message: "could not get rootFolderId"};
-          }
+      this.httpClient.get<Sample[]>(sampleUrl).pipe(
+        map(sample => {
+          return sample;
         })
       )
     );
