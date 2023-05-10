@@ -38,7 +38,7 @@ public class InfluxSampleRepository implements SampleRepository, AutoCloseable {
 
 
     @PostConstruct
-    private void initializeInfluxDBClient() {
+    void initializeInfluxDBClient() {
         logger.info("Connecting to: {}, token: {}, org: {}, bucket: {}",
                 connectionUrl, token, orgId, bucketName);
         this.influxDBClient = InfluxDBClientFactory.create(connectionUrl, token.toCharArray(), orgId, bucketName);

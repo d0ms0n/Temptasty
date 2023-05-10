@@ -5,7 +5,7 @@ services:
     build:
       context: temperature_sensor
     environment:
-      - RECEIVER_URL=http://receiver:8080/samples
+      - RECEIVER_URL=https://temptasty.org:8081/samples
       - SLEEP_TIME=5
     restart: always
     depends_on:
