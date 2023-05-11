@@ -1,4 +1,4 @@
-# Temptasty - temperature samples
+# Temptasty - temperature measurements
 
 This repository includes a demo implementation of a fictional IOT scenario,
 where sensors take temperature readings and send them to a backend.
@@ -21,7 +21,7 @@ This numbers, embedded in a json format, will be sent to a receiver url, or othe
 
 You can configure the script via environment variables. Possibilities are:
 
-- RECEIVER_URL=https://temptasty.org:8081/samples
+- RECEIVER_URL=https://temptasty.org:8081/measurements
 - SLEEP_TIME=5
 
 The format looks like:
@@ -36,26 +36,27 @@ The format looks like:
 ```
 
 ## Frontend
+The frontend component is an angular app. The chart libraries are chart.js and ng2-charts. Learn more about angular [here](https://angular.io/).
 
-To show the frontend, go to https://temptasty.org:8081/sample-viewer
+To show the frontend, go to https://temptasty.org:8081/measurement-viewer
 
 ## Backend
-
-To get all samples, call
-
-```
-curl -i -X GET 'https://temptasty.org:8081/samples'
-```
-
-To get the mean within a range of the last hour, last day, or last month, call
+The backend component is a quarkus application. Lern more about quarkus [here](https://quarkus.io/).
 
 ```
-curl -i -X GET 'https://temptasty.org:8081/samples/mean?sensor=sensor1&range=h'
+# get all measurements
+curl -i -X GET 'https://temptasty.org:8081/measurements'
+
+# get mean within a range of the last hour (h) day (d) month (m)
+# filter with query parameter "sensor"
+curl -i -X GET 'https://temptasty.org:8081/measurements/mean?sensor=sensor1&range=h'
 ```
 
 To view the openapi description go to http://localhost:8080/q/swagger-ui/
 
 ## Database
+The database is an influxdb docker image. 
+Learn more about influx [here](https://docs.influxdata.com/influxdb/v2.7/).
 
 To configure the database, go to http://localhost:8086/
 
@@ -89,12 +90,14 @@ From root folder, call
 # Todos
 
 - [ ] backend - ssl cert
+- [ ] backend - time validation
 - [ ] architecture - split in different docker networks
 - [ ] sensor - try mqtt for backend communication
 - [ ] backend - support mqtt
 - [ ] backend - spotbugs, pitest
 - [ ] backend - native executable
+- [ ] frontend - use docker build image
 - [ ] frontend - tests
-- [ ] frontend - enhance sample-viewer with mean and filters
+- [ ] frontend - enhance measurement-viewer with mean and filters
 - [ ] sensor - dynamic sensor count
 - [ ] frontend - support dynamic sensor count

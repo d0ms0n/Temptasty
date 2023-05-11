@@ -13,7 +13,7 @@ send_payload() {
   local payload="{\"name\": \"$name\", \"unit\": \"celsius\", \"time\": \"$(date -Iseconds)\", \"value\": $temperature}"
 
   if [ -n "$RECEIVER_URL" ]; then
-    curl -X POST -H "Content-Type: application/json" -d "$payload" "$RECEIVER_URL"
+    curl -X POST -k -H "Content-Type: application/json" -d "$payload" "$RECEIVER_URL"
   else
     echo "$payload"
   fi

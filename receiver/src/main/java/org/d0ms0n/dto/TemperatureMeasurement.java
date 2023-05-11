@@ -6,8 +6,8 @@ import jakarta.validation.constraints.*;
 
 import java.time.Instant;
 
-@Measurement(name = "sample")
-public class Sample {
+@Measurement(name = "measurement")
+public class TemperatureMeasurement {
 
     @Column(tag = true)
     @Pattern(regexp = "celsius")
@@ -26,14 +26,14 @@ public class Sample {
     @Digits(integer = 3, fraction = 2)
     private double value;
 
-    public Sample(String name, String unit, Instant time, double value) {
+    public TemperatureMeasurement(String name, String unit, Instant time, double value) {
         this.name = name;
         this.unit = unit;
         this.time = time;
         this.value = value;
     }
 
-    public Sample() {
+    public TemperatureMeasurement() {
     }
 
     public String getUnit() {
@@ -70,7 +70,7 @@ public class Sample {
 
     @Override
     public String toString() {
-        return "Sample{" +
+        return "TemperatureMeasurement{" +
                 "unit='" + unit + '\'' +
                 ", name='" + name + '\'' +
                 ", time=" + time +

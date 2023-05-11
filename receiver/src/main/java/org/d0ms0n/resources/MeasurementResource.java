@@ -5,29 +5,29 @@ import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.d0ms0n.dto.Sample;
-import org.d0ms0n.services.SampleService;
+import org.d0ms0n.dto.TemperatureMeasurement;
+import org.d0ms0n.services.MeasurementService;
 import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static jakarta.ws.rs.core.Response.Status.CREATED;
 
-@Path("/samples")
-public class SampleResource {
+@Path("/measurements")
+public class MeasurementResource {
 
-    private static final Logger logger = LoggerFactory.getLogger(SampleResource.class);
-    private final SampleService sampleService;
+    private static final Logger logger = LoggerFactory.getLogger(MeasurementResource.class);
+    private final MeasurementService measurementService;
 
     @Inject
-    public SampleResource(SampleService sampleService) {
-        this.sampleService = sampleService;
+    public MeasurementResource(MeasurementService measurementService) {
+        this.measurementService = measurementService;
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSamples() {
-        return Response.ok(sampleService.getAllSamples()).build();
+        return Response.ok(measurementService.getAllSamples()).build();
     }
 
     @GET
@@ -38,14 +38,14 @@ public class SampleResource {
             @QueryParam("range") String range,
             @Parameter(description = "sensor1 or sensor2")
             @QueryParam("sensor") String sensor) {
-        return Response.ok(sampleService.getMean(range, sensor)).build();
+        return Response.ok(measurementService.getMean(range, sensor)).build();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response writeSample(@Valid Sample sample) {
-        sampleService.createSample(sample);
-        return Response.status(CREATED).entity(sample).build();
+    public Response writeSample(@Valid TemperatureMeasurement measurement) {
+        measurementService.createSample(measurement);
+        return Response.status(CREATED).entity(measurement).build();
     }
 }

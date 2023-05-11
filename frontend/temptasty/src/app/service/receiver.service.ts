@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {firstValueFrom, map} from "rxjs";
-import {Sample} from "../model/sample.model";
+import {Measurement} from "../model/measurement.model";
 import {environment} from "src/environments/environment";
 
 @Injectable({
@@ -12,12 +12,12 @@ export class ReceiverService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAllSamples(): Promise<Sample[]> {
-    let sampleUrl = environment.apiURL + "/samples";
+  getAllMeasurements(): Promise<Measurement[]> {
+    let measurementUrl = environment.apiURL + "/measurements";
     return firstValueFrom(
-      this.httpClient.get<Sample[]>(sampleUrl).pipe(
-        map(sample => {
-          return sample;
+      this.httpClient.get<Measurement[]>(measurementUrl).pipe(
+        map(measurement => {
+          return measurement;
         })
       )
     );

@@ -12,8 +12,8 @@ import com.influxdb.query.dsl.functions.restriction.Restrictions;
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
-import org.d0ms0n.dto.Sample;
-import org.d0ms0n.services.SampleService;
+import org.d0ms0n.dto.TemperatureMeasurement;
+import org.d0ms0n.services.MeasurementService;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,8 +22,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @ApplicationScoped
-@Named("influxSampleRepository")
-public class InfluxSampleRepository implements SampleRepository, AutoCloseable {
+@Named("influxMeasurementRepository")
+public class InfluxMeasurementRepository implements MeasurementRepository, AutoCloseable {
     @ConfigProperty(name = "influxdb.connectionUrl")
     String connectionUrl;
     @ConfigProperty(name = "influxdb.token")
@@ -33,7 +33,7 @@ public class InfluxSampleRepository implements SampleRepository, AutoCloseable {
     @ConfigProperty(name = "influxdb.data.bucketName")
     String bucketName;
 
-    private static final Logger logger = LoggerFactory.getLogger(SampleService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MeasurementService.class);
     private InfluxDBClient influxDBClient;
 
 
@@ -45,26 +45,26 @@ public class InfluxSampleRepository implements SampleRepository, AutoCloseable {
     }
 
 
-    public InfluxSampleRepository() {
+    public InfluxMeasurementRepository() {
     }
 
     @Override
-    public void storeSample(Sample sample) {
+    public void storeMeasurement(TemperatureMeasurement measurement) {
         WriteApiBlocking writeApi = influxDBClient.getWriteApiBlocking();
-        writeApi.writeMeasurement(bucketName, orgId, WritePrecision.NS, sample);
+        writeApi.writeMeasurement(bucketName, orgId, WritePrecision.NS, measurement);
     }
 
     @Override
-    public List<Sample> getAllSamples() {
+    public List<TemperatureMeasurement> getAllMeasurements() {
         String temperatureByTimeQuery = Flux.from(bucketName)
                 .range(-1L, ChronoUnit.YEARS)
                 .toString();
         QueryApi queryApi = influxDBClient.getQueryApi();
-        return queryApi.query(temperatureByTimeQuery, Sample.class);
+        return queryApi.query(temperatureByTimeQuery, TemperatureMeasurement.class);
     }
 
     @Override
-    public List<Sample> getMean(long start, ChronoUnit unit, String sensor) {
+    public List<TemperatureMeasurement> getMean(long start, ChronoUnit unit, String sensor) {
         Flux flux = Flux.from(bucketName);
         RangeFlux rangeFlux = flux.range(start, unit);
         MeanFlux meanFlux;
@@ -76,7 +76,7 @@ public class InfluxSampleRepository implements SampleRepository, AutoCloseable {
         }
 
         QueryApi queryApi = influxDBClient.getQueryApi();
-        return queryApi.query(meanFlux.toString(), Sample.class);
+        return queryApi.query(meanFlux.toString(), TemperatureMeasurement.class);
     }
 
     @Override

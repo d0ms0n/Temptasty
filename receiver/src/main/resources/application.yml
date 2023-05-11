@@ -5,7 +5,7 @@ quarkus:
   http:
     port: 8080
   smallrye-openapi:
-    info-title: Temptasty - temperature samples API
+    info-title: Temptasty - temperature measurements API
     info-version: 1.0.0
     info-description: Just a temperature service
     info-terms-of-service: Terms...
@@ -21,4 +21,4 @@ influxdb:
   token: mytoken
   orgId: myorg
   data:
-    bucketName: temp_samples
+    bucketName: temp_measurements

@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {SampleViewerComponent} from './sample-viewer/sample-viewer.component';
+import {MeasurementViewerComponent} from './measurement-viewer/measurement-viewer.component';
 import {NgChartsModule} from "ng2-charts";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -14,7 +14,7 @@ import {HttpClientModule} from "@angular/common/http";
 @NgModule({
   declarations: [
     AppComponent,
-    SampleViewerComponent
+    MeasurementViewerComponent
   ],
   imports: [
     HttpClientModule,

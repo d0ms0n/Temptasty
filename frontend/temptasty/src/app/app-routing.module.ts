@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {SampleViewerComponent} from "./sample-viewer/sample-viewer.component";
+import {MeasurementViewerComponent} from "./measurement-viewer/measurement-viewer.component";
 
 const routes: Routes = [
   {
-    path: 'sample-viewer',
-    component: SampleViewerComponent
+    path: 'measurement-viewer',
+    component: MeasurementViewerComponent
   }
 ];
 

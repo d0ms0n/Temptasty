@@ -1,8 +1,8 @@
 @startuml
-title Temptasty - temperature samples
+title Temptasty - temperature measurements
 
   database "DB (InfluxDB)" {
-    frame "temp_samples" {
+    frame "temp_measurement" {
       component comp1 [
         unit:    string
         name: string

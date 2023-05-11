@@ -1,6 +1,6 @@
-# Temptasty - temperature samples
+# Temptasty - temperature measurements
 
-This application receives temperature samples from sensors and stores them to influx db.
+This application receives temperature measurements from sensors and stores them to influx db.
 
 ## Running the application in dev mode
 
