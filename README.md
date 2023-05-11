@@ -21,7 +21,7 @@ This numbers, embedded in a json format, will be sent to a receiver url, or othe
 
 You can configure the script via environment variables. Possibilities are:
 
-- RECEIVER_URL=https://temptasty.org:8081/measurements
+- RECEIVER_URL=https://temptasty.org/measurements
 - SLEEP_TIME=5
 
 The format looks like:
@@ -50,7 +50,7 @@ ng serve
 ```
 
 
-To show the frontend, go to https://temptasty.org:8081/measurement-viewer
+To show the frontend, go to https://temptasty.org/measurement-viewer
 
 ## Backend
 The backend component is a quarkus application. Lern more about quarkus [here](https://quarkus.io/).
@@ -65,11 +65,11 @@ The backend component is a quarkus application. Lern more about quarkus [here](h
 
 ```shell script
 # get all measurements
-curl -i -X GET 'https://temptasty.org:8081/measurements'
+curl -i -X GET 'https://temptasty.org/measurements'
 
 # get mean within a range of the last hour (h) day (d) month (m)
 # filter with query parameter "sensor"
-curl -i -X GET 'https://temptasty.org:8081/measurements/mean?sensor=sensor1&range=h'
+curl -i -X GET 'https://temptasty.org/measurements/mean?sensor=sensor1&range=h'
 ```
 
 To view the openapi description go to http://localhost:8080/q/swagger-ui/
