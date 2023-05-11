@@ -26,7 +26,7 @@ You can configure the script via environment variables. Possibilities are:
 
 The format looks like:
 
-```
+```json
 {
     "name": "sensor1",
     "unit": "celsius",
@@ -36,14 +36,34 @@ The format looks like:
 ```
 
 ## Frontend
-The frontend component is an angular app. The chart libraries are chart.js and ng2-charts. Learn more about angular [here](https://angular.io/).
+The frontend component is an angular app. The chart libraries are chart.js and ng2-charts. Learn more about angular [here](https://angular.io/). 
+
+```shell script
+# lint the code 
+ng lint --fix
+
+# build to dist folder
+ng build
+
+# develop with local dev server
+ng serve
+```
+
 
 To show the frontend, go to https://temptasty.org:8081/measurement-viewer
 
 ## Backend
 The backend component is a quarkus application. Lern more about quarkus [here](https://quarkus.io/).
 
+```shell script
+# run in dev mode with live coding
+./mvnw compile quarkus:dev
+
+# build to target folder
+./mvnw package
 ```
+
+```shell script
 # get all measurements
 curl -i -X GET 'https://temptasty.org:8081/measurements'
 
@@ -64,7 +84,7 @@ To configure the database, go to http://localhost:8086/
 
 You must provide an .env file in root folder with following content
 
-```
+```shell script
 # InfluxDB Configuration
 INFLUXDB_INIT_USERNAME=admin
 INFLUXDB_INIT_PASSWORD=password
@@ -73,7 +93,7 @@ INFLUXDB_INIT_ADMIN_TOKEN=mytoken
 
 Also modify your hosts file to support temptasty.org
 
-```
+```h
 127.0.0.1 temptasty.org
 ```
 
@@ -83,7 +103,7 @@ and put them to the nginx configuration.
 To build and run the application, be sure to have npx, docker and docker-compose installed.
 From root folder, call
 
-```
+```shell script
 ./run.sh
 ```
 

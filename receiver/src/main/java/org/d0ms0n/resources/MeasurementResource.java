@@ -27,6 +27,7 @@ public class MeasurementResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllSamples() {
+        logger.info("getAllSamples called");
         return Response.ok(measurementService.getAllSamples()).build();
     }
 
@@ -38,6 +39,7 @@ public class MeasurementResource {
             @QueryParam("range") String range,
             @Parameter(description = "sensor1 or sensor2")
             @QueryParam("sensor") String sensor) {
+            logger.info("getMean called");
         return Response.ok(measurementService.getMean(range, sensor)).build();
     }
 
@@ -45,6 +47,7 @@ public class MeasurementResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response writeSample(@Valid TemperatureMeasurement measurement) {
+        logger.info("writeSample called");
         measurementService.createSample(measurement);
         return Response.status(CREATED).entity(measurement).build();
     }
