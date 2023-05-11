@@ -11,7 +11,30 @@ Used technologies are:
 - nginx 1.23.3
 
 # Component overview
+
 ![component model](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/d0ms0n/Temptasty/master/components.iuml)
+
+## Sensor
+
+Then mock sensor is an Alpine Linux docker image with a bash script, which emits randomized numbers between 10 and 300.
+This numbers, embedded in a json format, will be sent to a receiver url, or otherwise prints the json to stdout.
+
+You can configure the script via environment variables. Possibilities are:
+
+- RECEIVER_URL=https://temptasty.org:8081/samples
+- SLEEP_TIME=5
+
+The format looks like:
+
+```
+{
+    "name": "sensor1",
+    "unit": "celsius",
+    "time": "2023-05-11T14:34:17Z",
+    "value": 66.72
+}
+```
+
 ## Frontend
 
 To show the frontend, go to https://temptasty.org:8081/sample-viewer
@@ -53,6 +76,9 @@ Also modify your hosts file to support temptasty.org
 127.0.0.1 temptasty.org
 ```
 
+You also have to create a ssl certificate with private key, store it under reverse-proxy/certs
+and put them to the nginx configuration.
+
 To build and run the application, be sure to have npx, docker and docker-compose installed.
 From root folder, call
 
@@ -63,6 +89,7 @@ From root folder, call
 # Todos
 
 - [ ] backend - ssl cert
+- [ ] architecture - split in different docker networks
 - [ ] sensor - try mqtt for backend communication
 - [ ] backend - support mqtt
 - [ ] backend - spotbugs, pitest
