@@ -20,6 +20,9 @@ export class SampleViewerComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
     this.receiverService.getAllSamples().then(samples => {
       this.addData(samples);
     });
@@ -46,7 +49,5 @@ export class SampleViewerComponent implements OnInit {
         label: 'Sensor 2',
       },
     ];
-
-    this.chartCanvas.chart.update();
   }
 }

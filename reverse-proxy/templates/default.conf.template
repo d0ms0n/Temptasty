@@ -10,44 +10,29 @@ upstream receiver {
 
 server {
     include /etc/nginx/mime.types;
-    listen ${NGINX_PORT};
+    listen ${NGINX_PORT} ssl;
     server_name temptasty;
 
     access_log /var/log/nginx/access.log temptasty;
 
-    #ssl_certificate /mnt/tls-secrets/temptasty.crt.pem;
-    #ssl_certificate_key /mnt/tls-secrets/temptasty.key.pem;
+    ssl_certificate /etc/nginx/ssl/d0ms0n.org.crt;
+    ssl_certificate_key /etc/nginx/ssl/d0ms0n.org.key;
 
     proxy_set_header Host $host;
 
     location / {
-      proxy_pass http://host.docker.internal:4200/sample-viewer;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection 'upgrade';
-      proxy_set_header Host $host;
-      proxy_cache_bypass $http_upgrade;
+     root /usr/share/nginx/html;
+     try_files $uri /index.html;
     }
 
     location /samples {
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-NginX-Proxy true;
       proxy_pass http://receiver/samples;
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_ssl_session_reuse off;
+      proxy_set_header Host $http_host;
+      proxy_cache_bypass $http_upgrade;
+      proxy_redirect off;
     }
-
-    location ~* \.(jpg|jpeg|png|gif|ico|css|js|map)$ {
-      proxy_pass http://host.docker.internal:4200;
-      proxy_set_header Host $host;
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    }
-
-    location /ng-cli-ws {
-      proxy_pass http://host.docker.internal:4200;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "Upgrade";
-      proxy_set_header Host $host;
-     }
 }

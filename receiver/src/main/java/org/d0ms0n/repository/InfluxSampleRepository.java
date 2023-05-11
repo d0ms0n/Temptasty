@@ -30,8 +30,6 @@ public class InfluxSampleRepository implements SampleRepository, AutoCloseable {
     String token;
     @ConfigProperty(name = "influxdb.orgId")
     String orgId;
-    @ConfigProperty(name = "influxdb.data.bucketId")
-    String bucketId;
     @ConfigProperty(name = "influxdb.data.bucketName")
     String bucketName;
 
@@ -40,10 +38,10 @@ public class InfluxSampleRepository implements SampleRepository, AutoCloseable {
 
 
     @PostConstruct
-    private void initializeInfluxDBClient() {
-        logger.info("Connecting to: {}, token: {}, org: {}, bucketId: {}",
-                connectionUrl, token, orgId, bucketId);
-        this.influxDBClient = InfluxDBClientFactory.create(connectionUrl, token.toCharArray(), orgId, bucketId);
+    void initializeInfluxDBClient() {
+        logger.info("Connecting to: {}, token: {}, org: {}, bucket: {}",
+                connectionUrl, token, orgId, bucketName);
+        this.influxDBClient = InfluxDBClientFactory.create(connectionUrl, token.toCharArray(), orgId, bucketName);
     }
 
 
