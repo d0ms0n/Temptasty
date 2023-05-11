@@ -91,6 +91,7 @@ From root folder, call
 
 - [ ] backend - ssl cert
 - [ ] backend - time validation
+- [ ] backend - own model for mean values
 - [ ] architecture - split in different docker networks
 - [ ] sensor - try mqtt for backend communication
 - [ ] backend - support mqtt
