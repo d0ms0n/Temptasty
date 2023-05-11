@@ -13,7 +13,7 @@ export class ReceiverService {
   }
 
   getAllMeasurements(): Promise<Measurement[]> {
-    let measurementUrl = environment.apiURL + "/measurements";
+    const measurementUrl = environment.apiURL + "/measurements";
     return firstValueFrom(
       this.httpClient.get<Measurement[]>(measurementUrl).pipe(
         map(measurement => {

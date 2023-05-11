@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {ReceiverService} from "../service/receiver.service";
 import {Measurement} from "../model/measurement.model";
 
@@ -7,7 +7,7 @@ import {Measurement} from "../model/measurement.model";
   templateUrl: './measurement-viewer.component.html',
   styleUrls: ['./measurement-viewer.component.scss']
 })
-export class MeasurementViewerComponent implements OnInit {
+export class MeasurementViewerComponent implements AfterViewInit {
   @ViewChild('myChartCanvas') chartCanvas: any;
 
   chartData: any[] = [];
@@ -16,11 +16,7 @@ export class MeasurementViewerComponent implements OnInit {
     responsive: true
   };
 
-  constructor(private receiverService: ReceiverService) {
-  }
-
-  ngOnInit(): void {
-  }
+  constructor(private receiverService: ReceiverService) {}
 
   ngAfterViewInit() {
     this.receiverService.getAllMeasurements().then(measurements => {
@@ -29,13 +25,13 @@ export class MeasurementViewerComponent implements OnInit {
   }
 
   addData(measurements: Measurement[]): void {
-    let dataset1 = measurements.filter(value => value.name == "sensor1");
-    let dataset1Mapped = dataset1.map(measurement => {
+    const dataset1 = measurements.filter(value => value.name == "sensor1");
+    const dataset1Mapped = dataset1.map(measurement => {
       return {x: measurement.time, y: measurement.value};
     });
 
-    let dataset2 = measurements.filter(value => value.name == "sensor2");
-    let dataset2Mapped = dataset2.map(measurement => {
+    const dataset2 = measurements.filter(value => value.name == "sensor2");
+    const dataset2Mapped = dataset2.map(measurement => {
       return {x: measurement.time, y: measurement.value};
     });
 
