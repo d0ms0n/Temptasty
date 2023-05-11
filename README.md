@@ -11,7 +11,7 @@ Used technologies are:
 - nginx 1.23.3
 
 # Component overview
-![component model](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.https://github.com/d0ms0n/Temptasty/master/components.iuml)
+![component model](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/d0ms0n/Temptasty/master/components.iuml)
 ## Frontend
 
 To show the frontend, go to https://temptasty.org:8081/sample-viewer
