@@ -2,3 +2,4 @@
 /.vscode
 /.idea
 /db_data
+db/data/influxdb2/conf/influx-configs
