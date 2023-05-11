@@ -1,11 +1,20 @@
 # Temptasty - temperature samples
 
-This docker compose file starts influxdb, a mock temperature sensor, a quarkus application as receiver and an angular
-frontend
+This repository includes a demo implementation of a fictional IOT scenario,
+where sensors take temperature readings and send them to a backend.
+
+Used technologies are:
+
+- influxdb 2.0
+- quarkus 3.0.1
+- angular 15.2.7
+- nginx 1.23.3
+
+# Component overview
 
 ```plantuml
 @startuml
-package "Temptasty" {
+title Temptasty - temperature samples
 
   database "DB (InfluxDB)" {
     frame "temp_samples" {
@@ -20,7 +29,7 @@ package "Temptasty" {
   node "reverse proxy (nginx)" {
     [backend (Quarkus)] as backend
     [frontend (Angular)] as frontend
-    frontend --> backend : https
+    frontend -> backend : https
   }
   
   [Browser] --> frontend : https
@@ -28,33 +37,8 @@ package "Temptasty" {
   [Sensor2] --> backend : https
   [Sensor1] --> backend : https
 
-}
+
 @enduml
-```
-
-## Running the application
-
-You must provide an .env file in root folder with following content
-
-```
-# InfluxDB Configuration
-INFLUXDB_HTTP_PORT=8086
-INFLUXDB_INIT_MODE=setup
-INFLUXDB_INIT_USERNAME=myuser
-INFLUXDB_INIT_PASSWORD=mypassword
-INFLUXDB_INIT_ORG=myorg
-INFLUXDB_INIT_BUCKET=mybucket
-INFLUXDB_INIT_ADMIN_TOKEN=mytoken
-INFLUXD_LOG_LEVEL=warn
-
-# Timezone
-TZ=Europe/Berlin
-```
-
-To build and run the application, be sure to have npx, docker and docker-compose installed.
-
-```
-./run.sh
 ```
 
 ## Frontend
@@ -81,4 +65,38 @@ To view the openapi description go to http://localhost:8080/q/swagger-ui/
 
 To configure the database, go to http://localhost:8086/
 
+# Running the application
 
+You must provide an .env file in root folder with following content
+
+```
+# InfluxDB Configuration
+INFLUXDB_INIT_USERNAME=admin
+INFLUXDB_INIT_PASSWORD=password
+INFLUXDB_INIT_ADMIN_TOKEN=mytoken
+```
+
+Also modify your hosts file to support temptasty.org
+
+```
+127.0.0.1 temptasty.org
+```
+
+To build and run the application, be sure to have npx, docker and docker-compose installed.
+From root folder, call
+
+```
+./run.sh
+```
+
+# Todos
+
+- [ ] backend - ssl cert
+- [ ] sensor - try mqtt for backend communication
+- [ ] backend - support mqtt
+- [ ] backend - spotbugs, pitest
+- [ ] backend - native executable
+- [ ] frontend - tests
+- [ ] frontend - enhance sample-viewer with mean and filters
+- [ ] sensor - dynamic sensor count
+- [ ] frontend - support dynamic sensor count
