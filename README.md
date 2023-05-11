@@ -11,36 +11,7 @@ Used technologies are:
 - nginx 1.23.3
 
 # Component overview
-
-```plantuml
-@startuml
-title Temptasty - temperature samples
-
-  database "DB (InfluxDB)" {
-    frame "temp_samples" {
-      component comp1 [
-        unit:    string
-        name: string
-        time:   dateTime:RFC3339
-        value: double
-      ]
-    }
-  }
-  node "reverse proxy (nginx)" {
-    [backend (Quarkus)] as backend
-    [frontend (Angular)] as frontend
-    frontend -> backend : https
-  }
-  
-  [Browser] --> frontend : https
-  [backend] --> comp1
-  [Sensor2] --> backend : https
-  [Sensor1] --> backend : https
-
-
-@enduml
-```
-
+![component model](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.https://github.com/d0ms0n/Temptasty/master/components.iuml)
 ## Frontend
 
 To show the frontend, go to https://temptasty.org:8081/sample-viewer
