@@ -1,7 +1,7 @@
 # Temptasty - temperature measurements
 
 This repository includes a demo implementation of a fictional IOT scenario,
-where sensors take temperature readings and send them to a backend.
+where sensors take temperature measurements and send them to a backend.
 
 Used technologies are:
 
@@ -11,13 +11,13 @@ Used technologies are:
 - nginx 1.23.3
 
 # Component overview
-The application consists of five components: a sensor, a frontend, a backend, a reverse-proxy and a database. The sensor collects temperature readings and sends them to the backend, which stores them in the database. The frontend displays the readings in a chart. The reverse-proxy takes the calls from browser or sensor and roots them to the correct direction.
+The application consists of five components: a sensor, a frontend, a backend, a reverse-proxy and a database. The sensor collects temperature measurements and sends them to the backend, which stores them in the database. The frontend displays the measurements in a chart. The reverse-proxy takes the calls from browser or sensor and roots them to the correct direction.
 
 ![component model](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.github.com/d0ms0n/Temptasty/master/components.iuml)
 
 ## Sensor
 
-The sensor is a mock device that generates randomized temperature readings between 10 and 300 degrees Celsius. The sensor runs in an Alpine Linux docker container and sends the readings to a receiver URL. 
+The sensor is a mock device that generates randomized temperature measurements between 10 and 300 degrees Celsius. The sensor runs in an Alpine Linux docker container and sends the measurements to a receiver URL. 
 You can configure the sensor by setting environment variables such as:
 
 - RECEIVER_URL=https://temptasty.org/measurements
@@ -35,7 +35,7 @@ The produced json format looks like:
 ```
 
 ## Frontend
-The frontend is an Angular app that displays a chart of the temperature readings. The chart is generated using the Chart.js and ng2-charts libraries. Learn more about Angular [here](https://angular.io/). To build and run the frontend, use the following commands:
+The frontend is an Angular app that displays a chart of the temperature measurements. The chart is generated using the Chart.js and ng2-charts libraries. Learn more about Angular [here](https://angular.io/). To build and run the frontend, use the following commands:
 
 ```shell script
 # lint the code 
@@ -52,7 +52,7 @@ ng serve
 To view the frontend, go to https://temptasty.org/measurement-viewer
 
 ## Backend
-The backend is a Quarkus application that receives temperature readings from the sensor and stores them in the database. Learn more about quarkus [here](https://quarkus.io/). To build and run the backend, use the following commands:
+The backend is a Quarkus application that receives temperature measurements from the sensor and stores them in the database. Learn more about quarkus [here](https://quarkus.io/). To build and run the backend, use the following commands:
 
 ```shell script
 # run in dev mode with live coding
